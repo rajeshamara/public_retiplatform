@@ -1,5 +1,7 @@
 # RetiLaw
 
+> **Public demo scope:** This repository is a curated public overview of the privately maintained RetiLaw project. It presents selected product and architecture information for portfolio review and demonstration. The application implementation remains private; credentials, client data, operational configuration, and internal development materials are not included. This repository is not a complete distribution of the private project.
+
 **A legal practice platform in development, focused on immigration workflows.**
 
 Built by [Rajesh Amara](https://github.com/rajeshamara), founder and hands-on solutions architect.
