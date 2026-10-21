@@ -6,27 +6,46 @@ The workflow engine is a custom Python implementation for persistent business pr
 
 An agent is a reusable capability adapter; it does not have to invoke an AI model. Document requests, deterministic form generation, notifications, and HTTP data acquisition can participate alongside model-assisted work. This lets a process use ordinary application logic where the answer is known and AI where interpretation adds value.
 
-## Execution examples
+## Definition and execution examples
 
-These screenshots show sample development executions in the application's workflow monitor. The expandable hierarchy connects a parent process to its nested workflows and individual agents, with status, start/completion dates, duration, and messages alongside each step.
+The application provides two complementary views of a workflow: a **definition view** for inspecting its reusable structure, and an **execution view** for examining the recorded state of a run. The examples below show both views for client onboarding and the EB-2 PERM process.
+
+| View | What it shows | Question it answers |
+| --- | --- | --- |
+| **Definition** | Configured agents, nested workflows, parallel blocks, branches, human checkpoints, event waits, and selected-node properties or JSON. | How is the process composed, and what paths can it take? |
+| **Execution** | A sample run's parent/child hierarchy, per-step status, start/completion dates, duration, and messages. | What state does this run report for each step? |
+
+A definition can be reused with different runtime inputs. Each execution records the progress of an individual run; inspecting a configured step is separate from observing that step execute.
 
 ### Client onboarding
 
-The onboarding example shows a completed parent workflow with nested company-setup and user-setup workflows. Its visible steps cover company and user records, company membership, database provisioning, product setup, role assignment, and an access-ready email step. It illustrates how reusable agents are composed into a larger platform operation.
+**Definition view.** The onboarding definition groups company setup and user setup in a parallel block, followed by membership, database and product provisioning, local records, role assignment, and account activation. A switch defines the email branches for different activation states. The properties panel exposes the selected nested workflow's reference, parameters, and JSON configuration.
+
+![Client onboarding definition showing parallel company and user setup, provisioning steps, conditional email branches, and selected workflow properties](../assets/client_onboard_workflow_def.png)
+
+[Open the client-onboarding definition at full size](../assets/client_onboard_workflow_def.png).
+
+**Execution view.** The sample run shows a completed parent workflow with nested company-setup and user-setup workflows. Its visible steps cover company and user records, company membership, database provisioning, product setup, role assignment, and an access-ready email step. The monitor adds recorded statuses and timing to the process hierarchy.
 
 ![Client onboarding execution monitor showing completed nested company and user setup workflows and individual agent steps](../assets/client_onboard_workflow.png)
 
-[Open the client-onboarding screenshot at full size](../assets/client_onboard_workflow.png).
+[Open the client-onboarding execution at full size](../assets/client_onboard_workflow.png).
 
 ### EB-2 PERM workflow
 
-This development example shows an immigration process composed of nested workflows for beneficiary, employer, and attorney intake; prevailing-wage preparation; recruitment; and PERM form preparation. The hierarchy continues through I-140, visa-bulletin, and I-485 package-preparation stages, demonstrating how the same monitor presents a longer, multi-stage process.
+**Definition view.** This longer process composes parallel beneficiary, employer, and attorney intake subflows with prevailing-wage preparation, recruitment, and PERM form preparation. Human review checkpoints and external-event waits are visible alongside reusable agents. The hierarchy continues through I-140, visa-bulletin, and I-485 package-preparation stages. The selected agent's properties show its execution reference, parameter bindings, and JSON configuration.
+
+![EB-2 PERM definition showing parallel intake subflows, human review checkpoints, event waits, later immigration stages, and selected agent properties](../assets/eb2_perm_workflow_def.png)
+
+[Open the EB-2 PERM definition at full size](../assets/eb2_perm_workflow_def.png).
+
+**Execution view.** The development run presents the process as a hierarchy of workflow and agent records, with individual statuses and timing across intake, preparation, review, and later immigration stages.
 
 The capture includes **Completed** steps alongside review and event-wait steps labeled **Not Started**. Those labels preserve the monitor's reported state for the sample; the screenshot is an execution-interface example, not evidence of a completed government filing.
 
 ![EB-2 PERM execution monitor showing nested intake, preparation, review, and later immigration workflow stages with their recorded statuses](../assets/eb2_perm_workflow.png)
 
-[Open the EB-2 PERM screenshot at full size](../assets/eb2_perm_workflow.png).
+[Open the EB-2 PERM execution at full size](../assets/eb2_perm_workflow.png).
 
 ## Engine execution model
 

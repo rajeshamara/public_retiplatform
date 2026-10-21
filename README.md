@@ -66,7 +66,7 @@ Products are designed to remain independently usable and separately entitled. Sh
 | **Mobile foundation** | Flutter packages for configuration, UI, networking, protected identity, and session handling across standalone and platform-hosted experiences. |
 | **Automated testing** | Playwright browser journeys, backend and component checks, formal test cases, and recorded execution evidence. |
 
-See the [client-onboarding and EB-2 PERM execution screenshots](platform/workflow-engine.md#execution-examples) for concrete examples of the workflow monitor, nested processes, and per-step status tracking.
+See the [client-onboarding and EB-2 PERM definition and execution screenshots](platform/workflow-engine.md#definition-and-execution-examples) to compare configured process structure with the statuses and timing recorded for sample runs.
 
 ## Explore the architecture
 
