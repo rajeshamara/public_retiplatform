@@ -56,6 +56,7 @@ Products are designed to remain independently usable and separately entitled. Sh
 | --- | --- |
 | **Custom workflow engine** | Declarative processes, conditional branches, loops, concurrent work, nested workflows, durable parallel children, human tasks, external-event waits, execution history, and defined recovery paths. |
 | **Identity and tenancy** | Shared authentication, MFA, company membership, product entitlement, role administration, and company-aware sessions. |
+| **Security and client isolation** | A main authentication cookie with HttpOnly, Secure, and SameSite=Strict; signed company/product context; and a separate business database for each client. |
 | **Documents and forms** | Document intake and extraction, structured source resolution, reusable mappings, saved form snapshots, preview, PDF output, and artifact-specific review. |
 | **Reusable agents** | Typed adapters that expose backend services to workflows, including deterministic operations and model-assisted work. |
 | **AI integration** | Common model-provider interfaces, retrieval-augmented responses, extraction, tool-calling loops, and usage metadata. |
@@ -63,6 +64,7 @@ Products are designed to remain independently usable and separately entitled. Sh
 | **Communication** | Reusable email templates, document requests, conditional notifications, and delivery results within business processes. |
 | **Shared web framework** | Runtime product navigation, reusable components, product-owned screen composition, and consistent service boundaries. |
 | **Mobile foundation** | Flutter packages for configuration, UI, networking, protected identity, and session handling across standalone and platform-hosted experiences. |
+| **Automated testing** | Playwright browser journeys, backend and component checks, formal test cases, and recorded execution evidence. |
 
 See the [client-onboarding and EB-2 PERM execution screenshots](platform/workflow-engine.md#execution-examples) for concrete examples of the workflow monitor, nested processes, and per-step status tracking.
 
@@ -75,6 +77,8 @@ The main README introduces the platform. These chapters provide the implementati
 | [Platform architecture](platform/README.md) | Single-app structure, runtime responsibilities, product boundaries, technology, and extension model. |
 | [Custom workflow engine](platform/workflow-engine.md) | Definition contracts, execution, human decisions, events, persistence, recovery, and monitoring. |
 | [Identity and tenancy](platform/identity-and-tenancy.md) | Identity versus authorization, company databases, product roles, SSO context, and delegation direction. |
+| [Security and client isolation](platform/security-and-isolation.md) | Authentication-cookie policy, product subdomains, signed session context, server authorization, and a database per client. |
+| [Automated testing and quality](platform/testing-and-quality.md) | Playwright automation, role-specific browser sessions, regression scenarios, assertions, and evidence. |
 | [Documents and forms](platform/documents-and-forms.md) | Intake, source ownership, mapping, snapshots, output, and review. |
 | [AI and reusable agents](platform/ai-and-agents.md) | Service-backed agents, provider adapters, retrieval, bounded tool use, and review boundaries. |
 | [RetiBot](platform/retibot.md) | One shared assistant for command proposals, product help, and general knowledge. |
@@ -91,6 +95,8 @@ For example, RetiLaw combines document collection, structured extraction, form g
 
 The implementation uses **React, TypeScript, Vite, Node.js, Python, FastAPI, Pydantic, PostgreSQL, Google Cloud Storage integrations, Flutter, and Dart**, alongside a custom workflow runtime and model-provider adapters.
 
-The engineering approach separates presentation, business services, and persistence; keeps known transformations deterministic; records durable workflow state; and ties review to the relevant data or artifact. Validation combines focused backend and frontend tests with browser journeys and mobile emulator/device checks where applicable.
+The engineering approach separates presentation, business services, and persistence; keeps known transformations deterministic; records durable workflow state; and ties review to the relevant data or artifact. [Automated testing](platform/testing-and-quality.md) combines focused backend and frontend checks with Playwright browser journeys and mobile emulator/device checks where applicable. Browser coverage includes authentication and logout, company sessions, role administration, intake, and workflow presentation, with assertions and saved evidence for specific journeys.
+
+[Security and client isolation](platform/security-and-isolation.md) are part of the shared architecture. Company/product subdomains select the intended experience; signed session context and server-side access checks govern protected operations. Each client has a separate business database containing product schemas, while application services and the central identity registry are shared. The security chapter explains the main authentication cookie's `HttpOnly`, `Secure`, and `SameSite=Strict` settings and the distinct policies used by integration cookies.
 
 Feature implementation, successful validation of a particular journey, and release availability are tracked separately. This repository documents those distinctions and the platform's development direction; it does not distribute installable applications or announce general availability.

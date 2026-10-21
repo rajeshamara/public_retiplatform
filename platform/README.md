@@ -70,6 +70,14 @@ Typed models define requests and results. SQL belongs to the data-access layer, 
 
 Workflow agents use the same business services as API entry points. This allows an operation to be triggered interactively or within an automated process while retaining one service-owned implementation.
 
+## Security and company boundaries
+
+Product and company subdomains give each experience a distinct entry point into the shared application. The session separates parent identity from signed company/product context. The main authentication-cookie helper applies `HttpOnly`, `Secure`, and `SameSite=Strict`; destination access still depends on company membership, product entitlement, roles, and resource permissions.
+
+Business data uses one PostgreSQL database per client, with product schemas inside that database. Application services and the central platform registry remain shared. This provides a separate tenant data store for each client without requiring a separate application deployment for every company.
+
+The [security and client isolation chapter](security-and-isolation.md) explains these layers, cookie-policy differences, and the distinction between a product subdomain and an authorization boundary. [Identity and tenancy](identity-and-tenancy.md) describes the access model and onboarding responsibilities.
+
 ## Workflow-owned business processes
 
 Multi-step work often lasts longer than a browser session. The workflow layer records what has started, which steps have finished, what is waiting for a person, and which event can resume execution.
@@ -97,4 +105,6 @@ The development approach starts with an existing capability and extends its cont
 
 Validation is matched to the change: service and workflow tests for business behavior; component tests and browser journeys for web interactions; exact snapshot and rendered-artifact checks for forms; and unit/widget tests plus installed-app journeys for mobile. A test of one consumer or platform is not treated as proof for every other consumer.
 
-Continue with [identity and tenancy](identity-and-tenancy.md), [documents and forms](documents-and-forms.md), [AI and agents](ai-and-agents.md), and [mobile architecture](mobile-architecture.md).
+Playwright automation exercises actual product screens through documented, role-specific browser sessions. The [automated testing and quality chapter](testing-and-quality.md) explains representative scenarios, assertions, evidence capture, and how recorded results are distinguished from current release acceptance.
+
+Continue with [identity and tenancy](identity-and-tenancy.md), [security and client isolation](security-and-isolation.md), [automated testing](testing-and-quality.md), [documents and forms](documents-and-forms.md), [AI and agents](ai-and-agents.md), and [mobile architecture](mobile-architecture.md).

@@ -22,6 +22,8 @@ For example, access to one company's legal matters does not authorize access to 
 
 The data architecture uses a central platform registry and a database per company. Product schemas organize business records within each company's database. Shared identity and membership records connect the authenticated user to the allowed company contexts.
 
+Each client therefore has its own business database within a shared application architecture. The application runtime and central identity services serve multiple clients; the design does not imply a dedicated application server or database server for every client. The [security and client isolation chapter](security-and-isolation.md#one-business-database-per-client) illustrates the data boundaries.
+
 Product-schema presence is separate from product entitlement. A database may contain the structures needed for a product before the company is authorized to use it.
 
 Ordinary tenant operations select a database through validated session/request context. A supplied URL, email domain, document reference, or storage path does not independently authorize a database switch. Product boundaries still apply even when two schemas are physically in the same database.
@@ -30,7 +32,9 @@ Ordinary tenant operations select a database through validated session/request c
 
 The shared web session establishes identity, while company/product context determines where the user is operating. Application startup restores authenticated state before mounting protected screens. Per-origin company/product context supports separate authorized browser tabs without treating one tab's company selection as permission for another.
 
-Single sign-on carries identity into an authorized destination. The destination still checks active membership, entitlement, and roles. Logout invalidates the parent session and its derived context. Local display state alone is insufficient to authenticate a request.
+The shared authentication-cookie helper sets `HttpOnly`, `Secure`, and `SameSite=Strict`. Signed company/product context is bound to the parent session and the requesting origin. Product subdomains identify the intended experience; the server evaluates authorization for that context. See [security and client isolation](security-and-isolation.md) for the cookie controls, subdomain model, and integration-specific differences.
+
+Single sign-on carries identity into an authorized destination. The destination still checks active membership, entitlement, and roles. Browser logout expires the parent authentication cookie and the derived context cookies received with the request; derived context cannot authenticate without a valid parent. Local display state alone is insufficient to authenticate a request.
 
 The mobile foundation provides protected session storage, server validation during restoration, refresh, logout, company selection, and optional local device unlock. Its current development authentication flow and release target are explained in [mobile architecture](mobile-architecture.md).
 
@@ -59,3 +63,5 @@ The foundation includes OAuth client and token-exchange services. Broader policy
 This chapter describes the shared access architecture and selected existing mechanisms. Adoption and validation of the contract are tracked per product and journey; see the product pages for material limits.
 
 Meaningful validation checks both permitted and denied behavior: missing or revoked membership, absent entitlement, an inappropriate role, a mismatched company context, an unassigned record, and an authorized transition into another company. A successful login proves identity; it does not establish all those access properties.
+
+The [automated testing chapter](testing-and-quality.md) describes existing Playwright journeys and focused backend tests for session, cookie, company-context, and role behavior.
