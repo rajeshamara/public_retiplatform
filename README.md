@@ -64,6 +64,8 @@ Products are designed to remain independently usable and separately entitled. Sh
 | **Shared web framework** | Runtime product navigation, reusable components, product-owned screen composition, and consistent service boundaries. |
 | **Mobile foundation** | Flutter packages for configuration, UI, networking, protected identity, and session handling across standalone and platform-hosted experiences. |
 
+See the [client-onboarding and EB-2 PERM execution screenshots](platform/workflow-engine.md#execution-examples) for concrete examples of the workflow monitor, nested processes, and per-step status tracking.
+
 ## Explore the architecture
 
 The main README introduces the platform. These chapters provide the implementation detail without repeating it in every product page.

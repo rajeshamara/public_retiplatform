@@ -6,6 +6,30 @@ The workflow engine is a custom Python implementation for persistent business pr
 
 An agent is a reusable capability adapter; it does not have to invoke an AI model. Document requests, deterministic form generation, notifications, and HTTP data acquisition can participate alongside model-assisted work. This lets a process use ordinary application logic where the answer is known and AI where interpretation adds value.
 
+## Execution examples
+
+These screenshots show sample development executions in the application's workflow monitor. The expandable hierarchy connects a parent process to its nested workflows and individual agents, with status, start/completion dates, duration, and messages alongside each step.
+
+### Client onboarding
+
+The onboarding example shows a completed parent workflow with nested company-setup and user-setup workflows. Its visible steps cover company and user records, company membership, database provisioning, product setup, role assignment, and an access-ready email step. It illustrates how reusable agents are composed into a larger platform operation.
+
+![Client onboarding execution monitor showing completed nested company and user setup workflows and individual agent steps](../assets/client_onboard_workflow.png)
+
+[Open the client-onboarding screenshot at full size](../assets/client_onboard_workflow.png).
+
+### EB-2 PERM workflow
+
+This development example shows an immigration process composed of nested workflows for beneficiary, employer, and attorney intake; prevailing-wage preparation; recruitment; and PERM form preparation. The hierarchy continues through I-140, visa-bulletin, and I-485 package-preparation stages, demonstrating how the same monitor presents a longer, multi-stage process.
+
+The capture includes **Completed** steps alongside review and event-wait steps labeled **Not Started**. Those labels preserve the monitor's reported state for the sample; the screenshot is an execution-interface example, not evidence of a completed government filing.
+
+![EB-2 PERM execution monitor showing nested intake, preparation, review, and later immigration workflow stages with their recorded statuses](../assets/eb2_perm_workflow.png)
+
+[Open the EB-2 PERM screenshot at full size](../assets/eb2_perm_workflow.png).
+
+## Engine execution model
+
 The following diagram is a conceptual view of the engine, rather than a deployment map:
 
 ```mermaid
