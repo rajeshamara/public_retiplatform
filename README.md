@@ -59,6 +59,7 @@ Products are designed to remain independently usable and separately entitled. Sh
 | **Documents and forms** | Document intake and extraction, structured source resolution, reusable mappings, saved form snapshots, preview, PDF output, and artifact-specific review. |
 | **Reusable agents** | Typed adapters that expose backend services to workflows, including deterministic operations and model-assisted work. |
 | **AI integration** | Common model-provider interfaces, retrieval-augmented responses, extraction, tool-calling loops, and usage metadata. |
+| **RetiBot** | Shared web assistant for product help and general questions, with an action-planning prototype, confirmation controls, and command-path integration under development. |
 | **Communication** | Reusable email templates, document requests, conditional notifications, and delivery results within business processes. |
 | **Shared web framework** | Runtime product navigation, reusable components, product-owned screen composition, and consistent service boundaries. |
 | **Mobile foundation** | Flutter packages for configuration, UI, networking, protected identity, and session handling across standalone and platform-hosted experiences. |
@@ -74,6 +75,8 @@ The main README introduces the platform. These chapters provide the implementati
 | [Identity and tenancy](platform/identity-and-tenancy.md) | Identity versus authorization, company databases, product roles, SSO context, and delegation direction. |
 | [Documents and forms](platform/documents-and-forms.md) | Intake, source ownership, mapping, snapshots, output, and review. |
 | [AI and reusable agents](platform/ai-and-agents.md) | Service-backed agents, provider adapters, retrieval, bounded tool use, and review boundaries. |
+| [RetiBot](platform/retibot.md) | One shared assistant for command proposals, product help, and general knowledge. |
+| [RetiBot intent-to-command architecture](platform/retibot-intent-execution.md) | Intent catalogs, saved plans, confirmation, execution boundaries, guardrails, and implementation status. |
 | [Mobile architecture](platform/mobile-architecture.md) | Flutter workspace, shared packages, native integration, development milestones, and validation. |
 
 ## How the platform grows

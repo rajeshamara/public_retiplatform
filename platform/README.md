@@ -60,6 +60,8 @@ Some screens combine shared and product-owned sections. A typed registration mec
 
 Navigation reflects permissions. Server-side checks remain responsible for enforcing access to business data and commands.
 
+The shared shell also hosts [RetiBot](retibot.md), reusing the chatbot component and service path across product experiences. Its knowledge-answering and action-proposal behaviors share one input. The [intent-to-command architecture](retibot-intent-execution.md) describes the existing controls and the remaining execution integration.
+
 ## Service and data contracts
 
 Web requests follow **component → frontend service → request transport**. Backend requests follow **router → business service → data access**. Mobile uses **screen → product service → shared networking → API**.

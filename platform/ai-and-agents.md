@@ -4,6 +4,8 @@
 
 RetiPlatform combines deterministic services with model-assisted interpretation. Reusable agents make those capabilities available to workflows, while model-provider adapters keep integration details out of product business logic.
 
+[RetiBot](retibot.md) provides a shared conversational interface to product help, general knowledge, and proposed business actions. Its [intent-to-command architecture](retibot-intent-execution.md) covers catalog matching, saved plans, confirmation, and the execution controls still being completed. That query-and-confirmation path is distinct from the iterative model-driven tool loop described below.
+
 ## Two meanings of agent
 
 A **workflow agent** is a focused adapter around a backend capability. It accepts typed input and context, calls services, and returns a result. Document requests, form generation, notifications, and HTTP acquisition can all be agents without invoking a language model.
