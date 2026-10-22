@@ -22,12 +22,6 @@ This infrastructure supports the same reuse model as the application: common set
 
 The Command Center is a development launcher for navigating the platform across environments and worktrees. Its selectors connect an environment, a configured branch, a company/domain context, and a test user to the relevant product experience. API and Node shortcuts, setup guides, documentation access, and development authentication helpers support repeatable daily work.
 
-[![RetiPlatform Command Center showing environment and worktree selectors, development tools, and product launch cards](../assets/windows_command_center.png)](../assets/windows_command_center.png)
-
-*Screenshot of the working development launcher. The product cards include public previews and future product concepts alongside implemented applications; a launcher entry does not imply a released product. The [product pages](../README.md#products-built-on-the-platform) describe the four products featured in this showcase.*
-
-Environment and worktree choices come from shared configuration. Product links adapt to the selected context, while public previews retain their local preview route. **Update All Nodes** requests runtime configuration reloads across configured Node instances and reports individual outcomes, including failures and timeouts. It does not deploy application code.
-
 The Command Center and the **RetiAgents Worktree Dashboard** have different roles. The launcher opens the appropriate tools and applications. The dashboard presents assignments reported by development agents, including the host, worktree, agent, status, and start/completion times. Those explicit task reports provide visibility into parallel work; they do not infer process health or decide that a branch is ready to merge.
 
 ## From an assignment to a validated change
