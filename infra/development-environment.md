@@ -23,17 +23,17 @@ Machine aliases identify development hosts. The worktree registry assigns develo
 
 ## Worktree allocation and memory planning
 
-The shared registry assigns permanent worktrees to each machine. The configured allocation is:
+The shared registry assigns permanent worktrees to each machine. The numbered development worktrees are allocated as follows:
 
-| Machine | Numbered development worktrees | Additional dedicated lane | Total worktrees |
-| --- | ---: | --- | ---: |
-| Windows workstation | 13 | — | 13 |
-| `minipc` | 19 | `chatgpt_sync` | 20 |
-| `lenovo` | 8 | — | 8 |
-| `lenovo1` | 4 | — | 4 |
-| `devmac` | 4 | — | 4 |
-| `macmini` | 8 | — | 8 |
-| **Total** | **56** | **1** | **57** |
+| Machine | Numbered development worktrees |
+| --- | ---: |
+| Windows workstation | 13 |
+| `minipc` | 19 |
+| `lenovo` | 8 |
+| `lenovo1` | 4 |
+| `devmac` | 4 |
+| `macmini` | 8 |
+| **Total** | **56** |
 
 These counts exclude the main checkout on each machine. Windows uses main for integration; the other machines maintain main as a reference alongside their assigned development worktrees. Worktree registration provides a persistent place for an assignment, and application stacks are started as needed.
 
