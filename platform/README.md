@@ -107,4 +107,6 @@ Validation is matched to the change: service and workflow tests for business beh
 
 Playwright automation exercises actual product screens through documented, role-specific browser sessions. The [automated testing and quality chapter](testing-and-quality.md) explains representative scenarios, assertions, evidence capture, and how recorded results are distinguished from current release acceptance.
 
+The [development infrastructure and delivery overview](../infra/README.md) covers the machines, private network, permanent worktrees, Command Center, coding-agent workflow, deployment paths, and mobile validation environment supporting this architecture.
+
 Continue with [identity and tenancy](identity-and-tenancy.md), [security and client isolation](security-and-isolation.md), [automated testing](testing-and-quality.md), [documents and forms](documents-and-forms.md), [AI and agents](ai-and-agents.md), and [mobile architecture](mobile-architecture.md).

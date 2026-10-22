@@ -85,6 +85,18 @@ The main README introduces the platform. These chapters provide the implementati
 | [RetiBot intent-to-command architecture](platform/retibot-intent-execution.md) | Intent catalogs, saved plans, confirmation, execution boundaries, guardrails, and implementation status. |
 | [Mobile architecture](platform/mobile-architecture.md) | Flutter workspace, shared packages, native integration, development milestones, and validation. |
 
+## Development infrastructure and delivery
+
+The platform is developed across Windows, three Linux machines, and macOS, with an additional Mac mini supporting iOS work. A custom **Command Center**, permanent product and feature worktrees, and **RetiMesh / RetiControl** private networking connect the engineering environment. Codex and Claude Code work within assigned lanes, supported by architecture guidance, task reporting, and validation requirements.
+
+The [infrastructure overview](infra/README.md) includes a Command Center screenshot and explains how the development system fits together. Its chapters cover:
+
+- [Development machines and worktrees](infra/development-environment.md), including branch ownership and integration across the fleet.
+- [RetiMesh and RetiControl](infra/retimesh-and-reticontrol.md), the private network customized around Tailscale and Headscale.
+- [Build and deployment](infra/build-and-deployment.md), separating local validation, private product hosting, and GCP public-site delivery.
+- [Mobile validation](infra/mobile-validation.md), with physical Android and iOS Simulator evidence and explicit remaining device gates.
+- [AI-assisted development](infra/ai-assisted-development.md), including model onboarding, proof of work, and the distinction between implementation and verified completion.
+
 ## How the platform grows
 
 A new product starts with the existing application, identity model, navigation framework, and service contracts. It adds product permissions, domain data, screens, and workflows. A new legal practice area can add terminology, intake definitions, document requirements, rules, and form mappings while reusing the same underlying engines.

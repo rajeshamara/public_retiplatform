@@ -57,3 +57,5 @@ RetiLaw uses typed models and an explicit product service over shared networking
 Static analysis, unit/widget tests, emulator checks, physical-device checks, and release signing answer different questions. Validation on one product or operating system is not transferred to another. Production authentication, release signing, distribution, and store availability remain separate delivery work.
 
 For product details, see [RetiLaw mobile](../products/retilaw/README.md#mobile-app) and [RetiAuth](../products/retiauth/README.md).
+
+The [mobile development and device validation chapter](../infra/mobile-validation.md) explains the Linux and Mac toolchains, dedicated worktree assignments, emulator setup, preserved-data upgrades, and dated Android/iOS test outcomes.
