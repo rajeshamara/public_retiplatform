@@ -4,7 +4,7 @@
 
 RetiBot's command architecture separates language interpretation from business execution. A model proposes a known intent; application services retain the plan and control the operation that may follow.
 
-This page explains both the existing implementation structure and the execution contract it is intended to satisfy. The command path currently needs integration fixes and further enforcement work. The diagrams are architecture views, not a claim of completed runtime acceptance.
+This page explains both the existing implementation structure and the execution contract it is intended to satisfy. The diagrams are architecture views, not a claim of completed runtime acceptance.
 
 ## The three-way decision
 
