@@ -4,7 +4,7 @@
 
 RetiPlatform's engineering environment connects development machines, permanent Git worktrees, private networking, browser automation, mobile toolchains, and deployment tooling. It supports parallel work on shared platform capabilities and individual products while keeping each assignment tied to a checkout, a branch, and validation evidence.
 
-The development fleet spans **Windows, three Linux development machines, and a Mac mini** for iOS development and validation. RetiMesh and RetiControl connect the private environment. A custom Command Center makes the configured environments and product entry points accessible from one place.
+The development fleet spans **Windows, three Linux development machines, DevMac running macOS, and a Mac mini** for iOS development and validation. RetiMesh and RetiControl connect the private environment. A custom Command Center makes the configured environments and product entry points accessible from one place.
 
 This infrastructure supports the same reuse model as the application: common setup, networking, worktree conventions, and validation procedures serve multiple products. The chapters below describe the implementation and recorded operating practices, with planned extensions identified where they matter.
 
@@ -12,7 +12,7 @@ This infrastructure supports the same reuse model as the application: common set
 
 | Chapter | What it covers |
 | --- | --- |
-| [Development environment](development-environment.md) | Machine roles, permanent worktrees, configuration, Command Center, and integration across the fleet. |
+| [Development environment](development-environment.md) | Machine roles and worktree counts, RAM planning, startup, dedicated ports, Command Center, and integration across the fleet. |
 | [RetiMesh and RetiControl](retimesh-and-reticontrol.md) | The customized private network built around Tailscale and Headscale, peer connectivity, service placement, and recovery. |
 | [Build and deployment](build-and-deployment.md) | Local validation, private product hosting, GCP public-site delivery, environment boundaries, and release checks. |
 | [Mobile development and validation](mobile-validation.md) | Linux and Mac mini responsibilities, dedicated mobile lanes, automated checks, emulators, and physical Android and iPhone testing. |

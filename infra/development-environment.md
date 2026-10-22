@@ -8,7 +8,7 @@ This chapter describes the configured development environment and its operating 
 
 ## Development fleet
 
-The development fleet consists of **one Windows workstation, three Linux development machines, and a Mac mini**. Each machine has a defined role in the shared development and validation workflow.
+The development fleet consists of **one Windows workstation, three Linux development machines, DevMac running macOS, and a Mac mini**. Each machine has a defined role in the shared development and validation workflow.
 
 | Environment | Role in the development setup |
 | --- | --- |
@@ -16,9 +16,30 @@ The development fleet consists of **one Windows workstation, three Linux develop
 | `minipc` — Linux | Parallel product and feature worktrees, including the mobile backend integration lane, worktree32. |
 | `lenovo` — Linux | Additional permanent worktrees for independent product and feature development. |
 | `lenovo1` — Linux | Additional permanent worktrees, extending the capacity for concurrent engineering assignments. |
-| `macmini` — macOS | Dedicated iOS development, including worktree50, Xcode builds, Simulator testing, and physical iPhone validation. |
+| `devmac` — macOS | Permanent development worktrees for product and feature engineering in the macOS environment. |
+| `macmini` — macOS | Dedicated iOS development, Xcode builds, Simulator testing, and physical iPhone validation. |
 
 Machine aliases identify development hosts. The worktree registry assigns development lanes to their machines, and the [mobile validation chapter](mobile-validation.md) explains how Android and iOS toolchains support emulator and physical-device testing.
+
+## Worktree allocation and memory planning
+
+The shared registry assigns permanent worktrees to each machine. The configured allocation is:
+
+| Machine | Numbered development worktrees | Additional dedicated lane | Total worktrees |
+| --- | ---: | --- | ---: |
+| Windows workstation | 13 | — | 13 |
+| `minipc` | 19 | `chatgpt_sync` | 20 |
+| `lenovo` | 8 | — | 8 |
+| `lenovo1` | 4 | — | 4 |
+| `devmac` | 4 | — | 4 |
+| `macmini` | 8 | — | 8 |
+| **Total** | **56** | **1** | **57** |
+
+These counts exclude the main checkout on each machine. Windows uses main for integration; the other machines maintain main as a reference alongside their assigned development worktrees. Worktree registration provides a persistent place for an assignment, and application stacks are started as needed.
+
+Capacity planning allocates **approximately 2 GB of RAM per active worktree's application processes**. This allowance helps determine how many development stacks to run on a machine. The budget also reserves room for the operating system, shared services, coding clients, browser sessions, build activity, and mobile emulators. Available memory, CPU load, and swap activity inform the final concurrency choice.
+
+The 2 GB figure is a planning allocation for an active service stack. Git worktree directories share repository objects on their host and consume disk space; they acquire a runtime memory footprint when services, builds, or tests are running. Configured worktree count and active-stack count are therefore tracked separately.
 
 ## Permanent product and feature lanes
 
@@ -33,6 +54,47 @@ The arrangement supports parallel work without requiring agents to edit the same
 - **Evidence:** worklogs and handovers use the lane identity, so one agent's continuation notes do not overwrite another's.
 
 Port separation helps browser tests reach the intended version of the application and prevents two lanes from sharing the same debugging endpoint. It does not create a separate copy of every external dependency: shared datastores, object storage, and other services still require explicit test-data and access boundaries.
+
+## Dedicated ports for independent development and testing
+
+Worktree registration reserves a complete service-port set in the central port registry and associates the lane with its machine. The set includes the web application, Node configuration service, API, workflow executor, and a block of 50 browser-debugging ports. Registration checks the service ports and entire browser block for collisions with existing assignments.
+
+For example, two configured lanes on MiniPC have the following allocations:
+
+| Service | `worktree31` | `worktree32` |
+| --- | ---: | ---: |
+| Web application | 3031 | 3032 |
+| Node configuration service | 4031 | 4032 |
+| FastAPI application | 8031 | 8032 |
+| Workflow executor | 9031 | 9032 |
+| Browser debugging block | 10650–10699 | 10700–10749 |
+
+Startup helpers resolve these values from the selected checkout's registration. Machine hostnames identify the development host, while the port identifies the worktree's service. Products running inside one lane reuse that lane's application foundation.
+
+Each agent can edit and build its own branch, use its service processes, and target its own browser-debugging ports. Separate role-specific browser sessions keep cookies, browser storage, and navigation separate. An agent testing a change in worktree32 therefore has a distinct application and browser endpoint from an agent working in worktree31.
+
+The isolation combines **working files, branch ownership, service ports, browser sessions, and process ownership**. Shared databases and external integrations retain their own tenant, record, and test-data boundaries. This lets agents develop and exercise separate application versions while coordinating changes to common resources.
+
+## Starting a worktree
+
+A prepared worktree has its branch, dependencies, runtime configuration, and registered ports in place. Starting that lane follows a consistent sequence:
+
+1. **Select the checkout.** Work begins in the assigned machine and worktree, with its repository root and branch confirmed.
+2. **Resolve the environment.** Startup helpers identify the worktree and load its web, Node, API, workflow, and browser-debugging ports from the registry.
+3. **Check the prerequisites.** The Linux/macOS launcher checks the required tools and entry points, then reuses an existing session for that worktree or checks that the lane's service ports are available before creating one. Windows opens the configured tabs, with environment setup handled by the service scripts.
+4. **Start the lane's processes.** Separate terminals or tmux windows run the web application, Node configuration service, API, and workflow process from that checkout. A command window remains available for builds, tests, and Git work.
+5. **Open and validate the selected environment.** The Command Center selects the machine and lane. Service checks and the appropriate browser journey confirm that the running application responds as expected.
+
+The repository provides platform-specific entry points, invoked from the selected worktree:
+
+| Host | Startup entry point | Workspace organization |
+| --- | --- | --- |
+| Windows | `.\start\start_worktree.bat` | Windows Terminal tabs for commands and the four application processes. |
+| Linux or macOS | `bash start/start_worktree.sh --detach` | A named tmux session for the worktree, with commands and service windows that remain available after SSH disconnects. |
+
+Runtime ports are selected automatically from the configured lane. When creating a new session, the Linux/macOS launcher reports an occupied service port instead of replacing the process using it. Process inspection and targeted restarts stay scoped to the owning worktree, preserving other agents' running environments.
+
+For browser testing, the agent uses the worktree's assigned debugging block and the required role-specific profile. Tests then reach that lane's application version, use its browser session, and retain their results with the same checkout. Together, these conventions support concurrent implementation and validation across the fleet.
 
 ## Windows Command Center
 

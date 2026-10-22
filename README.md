@@ -87,11 +87,11 @@ The main README introduces the platform. These chapters provide the implementati
 
 ## Development infrastructure and delivery
 
-The platform is developed across Windows, three Linux machines, and a Mac mini supporting iOS work. A custom **Command Center**, permanent product and feature worktrees, and **RetiMesh / RetiControl** private networking connect the engineering environment. Codex and Claude Code work within assigned lanes, supported by architecture guidance, task reporting, and validation requirements.
+The platform is developed across Windows, three Linux machines, DevMac running macOS, and a Mac mini supporting iOS work. A custom **Command Center**, permanent product and feature worktrees, and **RetiMesh / RetiControl** private networking connect the engineering environment. Codex and Claude Code work within assigned lanes, supported by architecture guidance, task reporting, and validation requirements.
 
 The [infrastructure overview](infra/README.md) includes a Command Center screenshot and explains how the development system fits together. Its chapters cover:
 
-- [Development machines and worktrees](infra/development-environment.md), including branch ownership and integration across the fleet.
+- [Development machines and worktrees](infra/development-environment.md), including per-machine allocations, memory planning, startup, dedicated ports, and integration across the fleet.
 - [RetiMesh and RetiControl](infra/retimesh-and-reticontrol.md), the private network customized around Tailscale and Headscale.
 - [Build and deployment](infra/build-and-deployment.md), separating local validation, private product hosting, and GCP public-site delivery.
 - [Mobile validation](infra/mobile-validation.md), including Android and iOS toolchains, automated checks, and physical Android and iPhone testing.

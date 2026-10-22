@@ -11,7 +11,7 @@ Linux supports the Android development loop, while a Mac mini provides the Apple
 | Machine | Lane | Mobile responsibility |
 | --- | --- | --- |
 | `minipc` | `worktree32` | Flutter/Dart and Android development, mobile API integration, emulator testing, and physical Android validation. |
-| `macmini` | `worktree50` | iOS development, Xcode builds, Simulator testing, and physical iPhone validation. |
+| `macmini` | Dedicated iOS lanes | iOS development, Xcode builds, Simulator testing, and physical iPhone validation. |
 
 Dedicated worktrees preserve the source, runtime configuration, and development context for each stream. Windows serves as a controller and optional graphical client, while Linux and the Mac mini run their respective mobile toolchains.
 
