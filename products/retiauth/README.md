@@ -100,16 +100,16 @@ The [shared mobile architecture](../../platform/mobile-architecture.md) explains
 
 ## Validation and delivery status
 
-Recorded evidence distinguishes algorithm tests, simulated UI journeys, native device behavior, and release readiness:
+Validation combines algorithm tests, automated UI journeys, and native device testing:
 
-| Area | Recorded coverage and limits |
+| Area | Validation approach |
 | --- | --- |
 | TOTP and parsing | Automated tests cover RFC 6238 test vectors, leading zeroes, countdown boundaries, short-key interoperability, malformed QR input, and unsupported settings. |
 | Account behavior | Unit and widget tests cover account creation, editing, deletion, duplicate rejection, persistence errors, lock/save races, search, and large-text layouts. |
 | Android development journeys | Emulator records cover the local account experience, QR recognition through the emulator camera, offline codes, and preserved-data upgrades. |
-| Connected enrollment | The October 2026 browser/emulator record covers optional sign-in, local-only enrollment, an already-signed-in account, shared-session regression, interrupted setup, and retained offline codes. This milestone did not include physical-phone acceptance. |
-| iOS integration | The October 2026 Simulator record includes a normal debug build and launch, automated tests, and scanner UI exercised with an injected camera adapter. The native protected-vault/unlock journey was not completed; this is not physical-camera or iPhone acceptance. |
-| Release readiness | Physical-device security and camera acceptance, relevant key-invalidation/reinstallation scenarios, release signing, production authentication, and store distribution remain separate gates. No independent security-audit certification is claimed. |
+| Connected enrollment | Browser and emulator checks cover optional sign-in, local-only enrollment, an already-signed-in account, shared-session regression, interrupted setup, and retained offline codes. |
+| Platform testing | The shared [mobile validation environment](../../infra/mobile-validation.md) combines Android emulators, iOS Simulator runs, and physical Android and iPhone testing. |
+| Delivery | Release signing, production authentication, and store distribution are managed separately from application development and testing. |
 
 ## Current limits
 

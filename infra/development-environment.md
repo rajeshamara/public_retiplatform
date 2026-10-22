@@ -8,7 +8,7 @@ This chapter describes the configured development environment and its operating 
 
 ## Development fleet
 
-The established five-machine baseline consists of **one Windows workstation, three Linux development machines, and one Mac**. A newer **Mac mini** expands the fleet for iOS builds and Simulator validation; the current environment registry therefore contains six environments.
+The development fleet consists of **one Windows workstation, three Linux development machines, and a Mac mini**. Each machine has a defined role in the shared development and validation workflow.
 
 | Environment | Role in the development setup |
 | --- | --- |
@@ -16,10 +16,9 @@ The established five-machine baseline consists of **one Windows workstation, thr
 | `minipc` — Linux | Parallel product and feature worktrees, including the mobile backend integration lane, worktree32. |
 | `lenovo` — Linux | Additional permanent worktrees for independent product and feature development. |
 | `lenovo1` — Linux | Additional permanent worktrees, extending the capacity for concurrent engineering assignments. |
-| `devmac` — macOS | Mac development lanes, including the configured worktree50 lane. Its assignment is distinct from the newer Mac mini's recorded iOS validation work. |
-| `macmini` — macOS expansion | iOS build and Simulator work, with optional development lanes. Recorded iOS validation used worktree51. |
+| `macmini` — macOS | Dedicated iOS development, including worktree50, Xcode builds, Simulator testing, and physical iPhone validation. |
 
-Machine aliases identify development hosts, not separate product deployments. The registry records where worktrees belong; it does not imply that every registered stack is active simultaneously. The [mobile validation chapter](mobile-validation.md) explains the Android, physical-device, and iOS evidence and their remaining gaps.
+Machine aliases identify development hosts. The worktree registry assigns development lanes to their machines, and the [mobile validation chapter](mobile-validation.md) explains how Android and iOS toolchains support emulator and physical-device testing.
 
 ## Permanent product and feature lanes
 

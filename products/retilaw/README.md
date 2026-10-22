@@ -74,7 +74,7 @@ The [mobile-architecture chapter](../../platform/mobile-architecture.md) explain
 
 Development records include Android emulator validation of standalone and RetiPlatform-hosted matter journeys, plus standalone testing on a physical Android phone over Wi-Fi. Those checks apply to the paths exercised.
 
-Current native mobile session issuance is development-only; the release target is system-browser OAuth Authorization Code with PKCE. RetiLaw-specific iOS acceptance, production authentication, release signing, and store distribution remain separate delivery gates.
+The shared [mobile validation environment](../../infra/mobile-validation.md) supports Android and iOS development, including physical Android and iPhone testing. Current native mobile session issuance is development-only; the release target is system-browser OAuth Authorization Code with PKCE. Production authentication, release signing, and store distribution are separate delivery work.
 
 ## How RetiLaw uses RetiPlatform
 

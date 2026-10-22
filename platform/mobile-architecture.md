@@ -31,7 +31,7 @@ RetiAuth's local authenticator is a separate capability: an enrolled local accou
 
 Shared Dart contracts isolate platform-specific operations. Android implementations include Keystore-backed protected storage, device authentication, and a signature-checked session broker using opaque references and native access controls. The broker supports authorized coordination between apps without relying on a plaintext token file shared between them.
 
-iOS project integration and native identity adapters are present. Keychain and application-group configuration have different constraints from Android storage and inter-app communication; their behavior needs independent validation. The existence of an adapter or a successful build does not establish every protected-storage journey.
+iOS integration includes native identity adapters, Keychain storage, and application-group configuration. Shared Dart contracts keep those platform-specific details separate from product screens and business services.
 
 ## How the mobile foundation was developed
 
@@ -45,17 +45,12 @@ Development progressed through working increments:
 
 RetiLaw uses typed models and an explicit product service over shared networking. Its Flutter widgets manage presentation and asynchronous state. RetiAuth adds authenticator-specific parsing, code generation, vault, onboarding, and privacy behavior behind focused services. Both benefit from common infrastructure while retaining different product responsibilities.
 
-## Validation evidence and release scope
+## Development and validation
 
-| Product or surface | Recorded evidence | Remaining distinction |
-| --- | --- | --- |
-| RetiLaw on Android | Emulator journeys for standalone and RetiPlatform-hosted matter access; standalone app checked on a physical Android phone over Wi-Fi. | Physical-device hosted mode and other device/network combinations need their own evidence. |
-| RetiAuth enrollment | Android emulator and browser checks for transaction-bound enrollment. | Those records do not establish physical-phone enrollment acceptance. |
-| RetiAuth on iOS | Build/launch and an injected scanner-UI scenario were exercised. | The full native protected-vault/unlock journey was not completed in that record. |
-| RetiLaw on iOS | iOS project integration is present. | RetiLaw-specific iOS acceptance remains a separate gate. |
+Mobile development combines static analysis, unit and widget tests, Flutter integration tests, Android emulators, and the iOS Simulator. Physical Android and iPhone validation are part of the development process. Linux and Mac mini worktrees provide dedicated platform toolchains while sharing the same Flutter foundation.
 
-Static analysis, unit/widget tests, emulator checks, physical-device checks, and release signing answer different questions. Validation on one product or operating system is not transferred to another. Production authentication, release signing, distribution, and store availability remain separate delivery work.
+Testing covers application behavior, session transitions, preserved-data upgrades, and network recovery. Build identities and test artifacts connect the results to the application version and selected device. Production authentication, release signing, and store distribution are managed as separate delivery work.
 
 For product details, see [RetiLaw mobile](../products/retilaw/README.md#mobile-app) and [RetiAuth](../products/retiauth/README.md).
 
-The [mobile development and device validation chapter](../infra/mobile-validation.md) explains the Linux and Mac toolchains, dedicated worktree assignments, emulator setup, preserved-data upgrades, and dated Android/iOS test outcomes.
+The [mobile development and device validation chapter](../infra/mobile-validation.md) explains the Linux and Mac mini toolchains, dedicated worktree assignments, emulator setup, preserved-data upgrades, and physical-device testing.

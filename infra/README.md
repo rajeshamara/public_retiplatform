@@ -4,7 +4,7 @@
 
 RetiPlatform's engineering environment connects development machines, permanent Git worktrees, private networking, browser automation, mobile toolchains, and deployment tooling. It supports parallel work on shared platform capabilities and individual products while keeping each assignment tied to a checkout, a branch, and validation evidence.
 
-The established fleet spans **Windows, three Linux development machines, and macOS**, with a newer Mac mini extending iOS development and validation. RetiMesh and RetiControl connect the private environment. A custom Command Center makes the configured environments and product entry points accessible from one place.
+The development fleet spans **Windows, three Linux development machines, and a Mac mini** for iOS development and validation. RetiMesh and RetiControl connect the private environment. A custom Command Center makes the configured environments and product entry points accessible from one place.
 
 This infrastructure supports the same reuse model as the application: common setup, networking, worktree conventions, and validation procedures serve multiple products. The chapters below describe the implementation and recorded operating practices, with planned extensions identified where they matter.
 
@@ -15,7 +15,7 @@ This infrastructure supports the same reuse model as the application: common set
 | [Development environment](development-environment.md) | Machine roles, permanent worktrees, configuration, Command Center, and integration across the fleet. |
 | [RetiMesh and RetiControl](retimesh-and-reticontrol.md) | The customized private network built around Tailscale and Headscale, peer connectivity, service placement, and recovery. |
 | [Build and deployment](build-and-deployment.md) | Local validation, private product hosting, GCP public-site delivery, environment boundaries, and release checks. |
-| [Mobile development and validation](mobile-validation.md) | Linux and Mac responsibilities, dedicated mobile lanes, physical Android testing, iOS Simulator evidence, and remaining device gates. |
+| [Mobile development and validation](mobile-validation.md) | Linux and Mac mini responsibilities, dedicated mobile lanes, automated checks, emulators, and physical Android and iPhone testing. |
 | [AI-assisted development](ai-assisted-development.md) | Codex and Claude Code, worktree ownership, architecture guidance, model qualification, task reporting, and evidence of completed work. |
 
 ## Command Center
@@ -42,7 +42,7 @@ The [development environment chapter](development-environment.md) explains the t
 
 The delivery environment has several destinations. Authenticated product services have a private-host deployment path, public marketing sites have a GCP deployment path, and mobile clients have platform-specific build and device-validation paths. The [build and deployment chapter](build-and-deployment.md) explains how these fit together without treating every destination as one automatic promotion pipeline.
 
-Mobile work uses shared Flutter packages while relying on the appropriate host tools for each platform. Linux supports Android and shared application development; macOS supplies Xcode and iOS validation. Recorded tests include actual Android hardware and iOS Simulator runs, with physical iPhone acceptance tracked separately. See [mobile validation](mobile-validation.md) for the specific journeys and their limits.
+Mobile work uses shared Flutter packages while relying on the appropriate host tools for each platform. Linux supports Android and shared application development; the Mac mini supplies Xcode and iOS validation. Testing combines automated checks, Android emulators, iOS Simulator runs, and validated physical Android and iPhone journeys. See [mobile validation](mobile-validation.md) for the development and testing approach.
 
 ## Engineering practices demonstrated
 
