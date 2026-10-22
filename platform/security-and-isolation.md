@@ -4,7 +4,7 @@
 
 RetiPlatform combines shared identity services, protected browser cookies, company-specific application context, and a database per company. These mechanisms address different boundaries: authenticating a person, selecting an authorized company and product, and permitting an operation on a particular record.
 
-This chapter describes implemented shared mechanisms and the authorization contract they support.
+RetiPlatform is under active development. This chapter distinguishes implemented shared mechanisms from the intended authorization design. Consistent role-based access control (RBAC) across every API operation is a design target; complete endpoint coverage has not yet been implemented or validated.
 
 ## One business database per client
 
@@ -61,11 +61,54 @@ The main logout flow expires the shared identity cookie and received company-con
 
 ## Authorization and request boundaries
 
-Authentication identifies the caller. Product and resource services decide what that caller may do. Implemented examples include RetiSign's active-membership, entitlement, role, and document-assignment checks, and role administration's distinction between platform, company, and product authority. A visible menu or a successful sign-in does not replace these checks.
+Authentication identifies the caller. Product and resource services are responsible for deciding what that caller may do. Selected implemented examples include RetiSign's active-membership, entitlement, role, and document-assignment checks, and role administration's distinction between platform, company, and product authority. A visible menu or a successful sign-in does not replace these checks. Consistent enforcement across all API operations remains the design target described below.
 
 Request-local context carries the selected database. The request lifecycle clears this routing state after each request, keeping database selection scoped to that request. Authorization remains the responsibility of the applicable authentication dependencies and business services.
 
 SameSite policy and configured CORS origin handling contribute browser-side restrictions. They do not replace current permissions or establish a complete, uniform cross-site request forgery defense. Route-level review and negative tests remain necessary; this implementation is not described as having a universal CSRF-token mechanism.
+
+## API-level RBAC design
+
+> **Design target — implementation in progress.** Existing products have selected role and resource checks. This section describes the intended policy for consistent authorization across API operations, rather than claiming that every endpoint already enforces it.
+
+The goal is to authorize each protected API call against the operation being requested. An operation is identified by its HTTP method and route template: permission to read a record does not automatically grant permission to create, change, approve, or delete it. Each protected operation will declare its required action permission and company/product scope; effective role assignments grant those permissions.
+
+Roles group permissions; the endpoint's action determines which permission must be checked. The following examples illustrate that separation, rather than document an existing permission catalog:
+
+| API operation | Intended authorization requirement |
+| --- | --- |
+| Read a matter | A role granting matter-read permission in the selected company and product, plus access to that matter. |
+| Update a matter | A role granting matter-update permission, plus access to the target matter and any applicable business-state restrictions. |
+| Manage product roles | Role-administration permission within the administrator's permitted company and product scope. |
+
+### Authorization on every request
+
+A shared server-side authorization layer is intended to apply the endpoint policy on every request before protected data is returned or a business change is made. The target sequence is:
+
+1. **Authenticate the caller.** Validate the session or other supported credential and establish the trusted identity.
+2. **Resolve the authorized context.** Establish the selected company and product, including active membership and product entitlement where required.
+3. **Evaluate the operation's policy.** Resolve the user's effective roles and permissions in that context and check them against the API operation's requirement. Role names or permissions supplied by the client do not establish authority.
+4. **Check the target resource.** Enforce company ownership, assignment, and other applicable record or business-state rules. A matching role alone does not grant access to another company's data or every record in the same company.
+5. **Execute or reject.** Invoke the permitted operation only after the applicable checks succeed. A denied request must not perform the requested business action.
+
+The intended default is to deny access when a protected operation has no matching permission grant. Every endpoint should have an explicit access policy; deliberately public operations, such as starting sign-in, must be identified and reviewed explicitly rather than becoming public through a missing authorization check. A missing endpoint policy must fail closed. An endpoint using a signing invitation, integration credential, or other alternate access mechanism still requires its own explicit policy and credential checks.
+
+The same operation policy is intended to apply whether a request comes from the web application, a mobile app, or a user action initiated through RetiBot. Navigation visibility and chatbot intent selection cannot grant backend authority. Delegated and service callers require their own explicit authorization scope. These principles align with [OWASP's authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html).
+
+### HTTP outcomes
+
+| Condition | Intended API response |
+| --- | --- |
+| Authentication is required, but the credential is missing, invalid, or expired. | **401 Unauthorized**; authentication must be established before the protected operation can proceed. |
+| The caller is authenticated, but lacks the required role, permission, membership, entitlement, or resource access. | **403 Forbidden**; the requested operation is refused. |
+
+These outcomes distinguish an authentication failure from an authorization failure. Responses should provide a consistent application error without revealing another company's records, internal policy details, or credentials. HTTP authentication challenges must follow the selected authentication scheme and the requirements for `401` responses. See [HTTP authentication and authorization status semantics](https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.2).
+
+### Planned acceptance coverage
+
+Completion requires an inventory of endpoint policies and tests for both permitted and denied requests. Planned cases include missing or expired authentication, a valid user with an unsuitable role, read permission without write permission, cross-company and cross-product attempts, access to an unassigned record, and changed or revoked role assignments. Denial checks should verify both the HTTP response and the absence of unauthorized data disclosure or business changes. Explicitly public endpoints and endpoints missing a policy also need coverage.
+
+This is the acceptance direction for API-wide RBAC. It is not a claim that those checks or tests are already complete across the platform.
 
 ## Validation and development scope
 

@@ -77,7 +77,7 @@ The main README introduces the platform. These chapters provide the implementati
 | [Platform architecture](platform/README.md) | Single-app structure, runtime responsibilities, product boundaries, technology, and extension model. |
 | [Custom workflow engine](platform/workflow-engine.md) | Definition contracts, execution, human decisions, events, persistence, recovery, and monitoring. |
 | [Identity and tenancy](platform/identity-and-tenancy.md) | Identity versus authorization, company databases, product roles, SSO context, and delegation direction. |
-| [Security and client isolation](platform/security-and-isolation.md) | Authentication-cookie policy, product subdomains, signed session context, server authorization, and a database per client. |
+| [Security and client isolation](platform/security-and-isolation.md) | Authentication-cookie policy, product subdomains, signed session context, a database per client, and planned API-level RBAC with explicit permission checks and HTTP outcomes. |
 | [Automated testing and quality](platform/testing-and-quality.md) | Playwright automation, role-specific browser sessions, regression scenarios, assertions, and evidence. |
 | [Documents and forms](platform/documents-and-forms.md) | Intake, source ownership, mapping, snapshots, output, and review. |
 | [AI and reusable agents](platform/ai-and-agents.md) | Service-backed agents, provider adapters, retrieval, bounded tool use, and review boundaries. |
